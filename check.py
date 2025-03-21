@@ -1,41 +1,41 @@
-# def get_first_element(lst):  
-#     print(lst[0])  # List ka pehla element print kar raha hai
+phonebook = {}
 
-# # User se input lena
-# user_list = []  # Khaali list banayi
-# n = int(input("Kitne elements daalne hain? "))  # User se poocha kitne elements chahiye
-
-# for i in range(n):  
-#     element = input(f"Element {i+1} likho: ")  # Har element input karwa rahe hain
-#     user_list.append(element)  # List me add kar rahe hain
-
-# print("List before:", user_list)  
-# get_first_element(user_list)  # Function call kiya  
-
-
-MAX_LENGTH = 3
-
-def shorten(list):
+while True:
     
-    while len(list) > MAX_LENGTH:
-        remove_element = list.pop()
-        print(f"Removed Element: {remove_element}")
-        
-        
-def user_input():
+    print("\nSimple Phone-book Programme")
+    print("1. Add New Number")
+    print("2. Search Number")
+    print("3. Phonebook List")
+    print("4. Exit")
     
-    user_list = []
+    user_input = int(input("Select your options (1-4): "))
     
-    user_input = int(input("Kitne Elements Add karne hai list may: "))
+    if user_input == 1:
+        
+        name = input("Enter your Name: ")
+        number = input("Enter your phone number: ")
+        phonebook[name] = number
+        print(f"{name}: {number} is saved in your phonebook")
+        
+    elif user_input == 2:
+        
+        search = input("Enter Name for searching...")
+        
+        if search in phonebook:
+            print(f"📞 {name} number: {phonebook[name]}")
+        else:
+            print("This number dosen't exist in your phonebook")
+            
+    elif user_input == 3:
+        
+        print("\nPhone Book List\n")
+        for name, number in phonebook.items():
+            print(f"{name}: {number}")
+            
+    elif user_input == 4:
+        print("Programme successfully closed....")
+        break
     
-    for i in range(user_input):
-        
-        element = input(f"Element {i + 1} Likho")
-        user_list.append(element)
-        
-
-print(f"List before shortening: {user_list}")
-
-shorten(user_list)
-
-print(f"List after shortening: {user_list}")
+    else:
+        print("Wrong Command!")
+    
