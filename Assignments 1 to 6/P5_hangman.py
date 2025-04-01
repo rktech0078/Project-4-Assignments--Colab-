@@ -1,48 +1,38 @@
 import streamlit as st
 import random
 
-# Word list
-words = ["python", "streamlit", "hangman", "developer", "coding"]
+words: list = ["python", "streamlit", "hangman", "developer", "coding"]
 
-# Initialize session state
-if "word" not in st.session_state:
-    st.session_state.word = random.choice(words)
-    st.session_state.display = ["_" for _ in st.session_state.word]
-    st.session_state.guessed = set()
-    st.session_state.attempts = 6
+if "state" not in st.session_state:
+    word = random.choice(words)
+    st.session_state.state = {
+        "word": word,
+        "display": ["_"] * len(word),
+        "guessed": set(),
+        "attempts": 6
+    }
+    
+game = st.session_state.state
 
-st.title("📝 Hangman Game")
+st.title("📝 HANGMAN GAME")
 
-# Display current state
-st.write("Word: ", " ".join(st.session_state.display))
+st.write("Words: ", " ".join(game["display"]))
 
-# User input
-guess = st.text_input("Guess a letter:", max_chars=1).lower()
+user_guess = st.text_input("Guess a letter: ", max_chars=1).lower()
 
-if st.button("Submit Guess") and guess:
-    if guess in st.session_state.guessed:
-        st.warning("You already guessed that letter!")
+if st.button("Submit") and user_guess:
+    if user_guess in game["guessed"]:
+        st.warning('Letter is already guessed')
     else:
-        st.session_state.guessed.add(guess)
-        if guess in st.session_state.word:
-            for idx, letter in enumerate(st.session_state.word):
-                if letter == guess:
-                    st.session_state.display[idx] = guess
+        game['guessed'].add(user_guess)
+        if user_guess in game['word']:
+            game['display'] = [user_guess if c == user_guess else d for c, d in zip(game['word'], game['display'])]
         else:
-            st.session_state.attempts -= 1
+            game['attempts'] -= 1
+            
 
-# Check win/loss
-if "_" not in st.session_state.display:
-    st.success("🎉 Congratulations! You guessed the word!")
-    st.session_state.word = random.choice(words)
-    st.session_state.display = ["_" for _ in st.session_state.word]
-    st.session_state.guessed = set()
-    st.session_state.attempts = 6
-elif st.session_state.attempts == 0:
-    st.error(f"😞 Game Over! The word was '{st.session_state.word}'.")
-    st.session_state.word = random.choice(words)
-    st.session_state.display = ["_" for _ in st.session_state.word]
-    st.session_state.guessed = set()
-    st.session_state.attempts = 6
-
-st.write(f"Attempts left: {st.session_state.attempts}")
+if "_" not in game["display"]:
+    st.success("YOU WIN")
+    st.session_state.state = None or st.write("Game Over! Try Again")
+    
+st.write(f"Attempts Left: {game["attempts"]}")
