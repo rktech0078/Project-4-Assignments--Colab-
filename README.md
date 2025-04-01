@@ -1,6 +1,6 @@
 # 📚 Project-4-Assignments (Colab)
 
-![Project Banner](https://via.placeholder.com/1200x300.png?text=Project+4+Assignments)
+![Project Banner](https://github.com/rktech0078/Project-4-Assignments--Colab-/blob/main/Opera%20Snapshot_2025-04-01_232446.png)
 
 ## 📌 Introduction
 This project is an **Eid Assignment** given by **Sir Zia and Sir Arif Rozani**. The goal is to practice **Python and AI-related concepts** through assignments.
